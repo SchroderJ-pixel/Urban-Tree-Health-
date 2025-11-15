@@ -33,12 +33,9 @@
   - [Results and Analysis](#results-and-analysis)
     - [EDA Results](#eda-results)
     - [Geospatial Results](#geospatial-results)
+    - [Random Forest Results](#random-forest-results)
   - [Getting Started](#getting-started)
     - [Environment Setup (uv)](#environment-setup-uv)
-- [Create virtual environment](#create-virtual-environment)
-- [Activate (Windows)](#activate-windows)
-- [Or on macOS/Linux](#or-on-macoslinux)
-- [Install dependencies defined in pyproject.toml](#install-dependencies-defined-in-pyprojecttoml)
 
 ---
 
@@ -161,6 +158,35 @@ This study focuses on the **Washington, D.C.** subset (**190,992 trees**, 2017â€
 _Health conditions mapped across Washington, D.C.; widespread distribution across wards with varying condition levels._
 
 ---
+### Random Forest Results
+
+**Model Performance**
+
+Accuracy: 0.752
+Macro F1 (present classes only): 0.479
+
+**Classification Report**
+
+          precision    recall  f1-score   support
+
+    poor      0.381     0.073     0.123      1095
+    fair      0.431     0.169     0.243      6006
+    good      0.775     0.919     0.841     28614
+
+excellent 0.762 0.667 0.711 6213
+
+accuracy                          0.752     41928
+
+
+**Confusion Matrix**
+![Random Forest Confusion Matrix](images/ConMatrix.png)
+
+- Strong predictive performance for **good** and **excellent** conditions due to large sample sizes.
+- Lower recall for **poor** and **fair**, reflecting class imbalance and fewer training examples.
+- Macro F1 score highlights weaker performance on minority classes since all classes are weighted equally.
+- *Dead/dying* appears as zero because no samples remained in the cleaned dataset.
+
+---
 
 ## Getting Started
 
@@ -180,5 +206,7 @@ source .venv/bin/activate
 
 # Install dependencies defined in pyproject.toml
 uv pip install -r pyproject.toml
+
+```
 
 
