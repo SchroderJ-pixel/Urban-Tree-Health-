@@ -8,27 +8,7 @@
 
 ## Abstract
 
- This project analyzes urban tree health in Washington, D.C.,
-using a combination of exploratory data analysis (EDA), geospatial map-
-ping, and machine learning classification. The dataset used comes from
-the 5M Trees Dataset [3] and contains 190,992 trees with physical, ge-
-ographic, and other features. Key features were cleaned, encoded, and
-engineered to support predictive modeling. Information from the EDA
-revealed that the majority of trees within the dataset were healthy. The
-Random Forest Classifier was trained to predict five possible health con-
-ditions (dead/dying, poor, fair, good, and excellent), using a 70/30 train-
-test split and six input features. Results from the baseline model achieved
-75.2% accuracy and a macro F1 score of 0.479. The model performed
-well on healthy classes but poorly on the minority, unhealthy classes.
-A SMOTE resampling experiment was conducted afterward to test the
-effect of the class imbalance. SMOTE increased recall for all conditions
-except good. However, the overall accuracy was lowered to 66.1%. Both
-models show that tree condition is highly predictive for healthy trees
-but much harder to detect for unhealthy trees with the attributes in
-the dataset. This work demonstrates how machine learning can support
-urban forestry efforts and highlights the need for additional ecological
-features (e.g., soil data, species type, maintenance history) for urban
-trees in future models.
+This project analyzes urban tree health in Washington, D.C., using a combination of exploratory data analysis (EDA), geospatial mapping, and machine learning classification. The dataset used comes from the 5M Trees Dataset [3] and contains 190,992 trees with physical, geographic, and other features. Key features were cleaned, encoded, and engineered to support predictive modeling. Information from the EDA revealed that the majority of trees within the dataset were healthy. The Random Forest Classifier was trained to predict five possible health conditions (dead/dying, poor, fair, good, and excellent), using a 70/30 train-test split and six input features. Results from the baseline model achieved 75.2% accuracy and a macro F1 score of 0.479. The model performed well on healthy classes but poorly on the minority, unhealthy classes. A SMOTE resampling experiment was conducted afterward to test the effect of the class imbalance. SMOTE increased recall for all conditions except good. However, the overall accuracy was lowered to 66.1%. Both models show that tree condition is highly predictive for healthy trees but much harder to detect for unhealthy trees with the attributes in the dataset. This work demonstrates how machine learning can support urban forestry efforts and highlights the need for additional ecological features (e.g., soil data, species type, maintenance history) for urban trees in future models.
 
 **Keywords:**  machine learning · urban forestry · environmental data anal-
 ysis · tree health classification · geospatial analytics
@@ -245,7 +225,7 @@ weighted avg    0.693     0.661     0.674    41928
 
 **Confusion Matrix (After SMOTE)**
 
-![Random Forest Confusion Matrix](images/images/SmoteConMatrix.png)
+![Random Forest Confusion Matrix](images/SmoteConMatrix.png)
 
 **Key Insights**
 
