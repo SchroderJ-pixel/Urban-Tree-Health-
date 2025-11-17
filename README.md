@@ -8,10 +8,30 @@
 
 ## Abstract
 
-> _Replace this placeholder with your final abstract (150–250 words)._
-> Summarize the dataset (5M Trees; Washington, D.C. subset), methods (EDA, geospatial mapping, Random Forest classification), and key findings (e.g., condition distribution, most influential features, practical implications for urban forestry).
+ This project analyzes urban tree health in Washington, D.C.,
+using a combination of exploratory data analysis (EDA), geospatial map-
+ping, and machine learning classification. The dataset used comes from
+the 5M Trees Dataset [3] and contains 190,992 trees with physical, ge-
+ographic, and other features. Key features were cleaned, encoded, and
+engineered to support predictive modeling. Information from the EDA
+revealed that the majority of trees within the dataset were healthy. The
+Random Forest Classifier was trained to predict five possible health con-
+ditions (dead/dying, poor, fair, good, and excellent), using a 70/30 train-
+test split and six input features. Results from the baseline model achieved
+75.2% accuracy and a macro F1 score of 0.479. The model performed
+well on healthy classes but poorly on the minority, unhealthy classes.
+A SMOTE resampling experiment was conducted afterward to test the
+effect of the class imbalance. SMOTE increased recall for all conditions
+except good. However, the overall accuracy was lowered to 66.1%. Both
+models show that tree condition is highly predictive for healthy trees
+but much harder to detect for unhealthy trees with the attributes in
+the dataset. This work demonstrates how machine learning can support
+urban forestry efforts and highlights the need for additional ecological
+features (e.g., soil data, species type, maintenance history) for urban
+trees in future models.
 
-**Keywords:** machine learning · forest ecology · environmental data analysis · classification
+**Keywords:**  machine learning · urban forestry · environmental data anal-
+ysis · tree health classification · geospatial analytics
 
 ---
 
@@ -21,7 +41,7 @@
   - [Abstract](#abstract)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
-  - [Project Links](#project-links)
+    - [Project Links](#project-links)
   - [Dataset](#dataset)
     - [Data Extraction and Loading](#data-extraction-and-loading)
     - [Data Dictionary](#data-dictionary)
@@ -34,32 +54,48 @@
     - [EDA Results](#eda-results)
     - [Geospatial Results](#geospatial-results)
     - [Random Forest Results](#random-forest-results)
+    - [SMOTE Resampling Results](#smote-resampling-results)
   - [Getting Started](#getting-started)
     - [Environment Setup (uv)](#environment-setup-uv)
+  - [References](#references)
 
 ---
 
 ## Introduction
 
-Trees are essential for natural environments in both rural and urban locations. They cover about **31%** of the Earth’s land area, with more than half located in just five countries, one of which is the United States of America \[FAO\]. Trees regulate climate, maintain the water cycle, replenish nutrients back into the soil, and support biodiversity.
-
-In cities, trees reduce energy usage, remove air pollutants, filter stormwater, and cool hot streets by providing shade and releasing water vapor. Exposure to urban trees and green spaces has been linked to reduced stress, improved mood, and enhanced overall mental health. Maintaining and monitoring urban tree health is critical for both ecosystems and people.
-
-This project analyzes the health of urban trees in **Washington, D.C.** using:
-- **EDA** to understand feature distributions and correlations,
-- **Geospatial mapping** to visualize spatial patterns, and
-- A **Random Forest classifier** to predict tree condition from relevant features.
+Trees are essential for natural environments in both rural and urban locations.
+They cover about 31 percent of the Earth’s land area, with more than half
+located in just five countries, one of which is the United States of America
+[2]. They have numerous benefits to ecological systems and natural processes:
+regulating climate, maintaining the water cycle, replenishing nutrients back into
+the soil, and supporting the biodiversity of many ecosystems [4].
+In urban areas, trees are one of the main natural features. The benefits of
+trees can be observed in numerous ecological systems, but their responsibilities
+are no less important in cities. They reduce energy usage, remove air pollutants,
+filter stormwater, and cool hot city streets by providing shade and releasing water
+2 J. Schroder
+vapor [5]. Exposure to urban trees and green spaces has been linked to reducing
+stress, improving mood, and enhancing overall mental health in city residents
+[6]. Maintaining and monitoring urban tree health is vital to the environment
+and the well-being of individuals within cities.
+Fig. 1. Benefits of Urban Trees [1]
+Through data analytics and machine learning, this process has become signif-
+icantly easier. This work analyzes the health of urban trees in Washington, D.C.
+using an Exploratory Data Analysis (EDA) to understand feature distribution,
+a geospatial analysis to visualize tree locations and health patterns on a map,
+and a Random Forest Classifier to predict tree condition based on the relevant
+features.
 
 ---
 
-## Project Links
+### Project Links
 
 - **Overleaf (public):** https://www.overleaf.com/project/68f7bc1aee158ade112c1ce8
 - **GitHub (public):** https://github.com/SchroderJ-pixel/Urban-Tree-Health-
 - **Dataset:** https://www.kaggle.com/datasets/mexwell/5m-trees-dataset
 - **FAO – The State of the World’s Forests:** https://www.fao.org/state-of-forests
-- **Speak for the Trees, Boston – Benefits of Urban Trees:** https://treeboston.org/tree-equity-maps/benefits-of-urban-trees/
 - **NASA LP DAAC User Guide (2013):** https://lpdaac.usgs.gov/documents/1371/GFCC_User_Guide_V1.pdf
+- **Speak for the Trees, Boston – Benefits of Urban Trees:** https://treeboston.org/tree-equity-maps/benefits-of-urban-trees/
 - **The Nature Conservancy – Benefits of Urban Trees (Infographic):**
   https://www.nature.org/en-us/what-we-do/our-priorities/build-healthy-cities/cities-stories/benefits-of-trees-forests/
 - **Twohig-Bennett & Jones (2018) – Greenspace Exposure and Health Outcomes:** https://doi.org/10.1016/j.envres.2018.06.030
@@ -181,13 +217,55 @@ accuracy                          0.752     41928
 **Confusion Matrix**
 ![Random Forest Confusion Matrix](images/ConMatrix.png)
 
+**Key Insights**
 - Strong predictive performance for **good** and **excellent** conditions due to large sample sizes.
 - Lower recall for **poor** and **fair**, reflecting class imbalance and fewer training examples.
 - Macro F1 score highlights weaker performance on minority classes since all classes are weighted equally.
 - *Dead/dying* appears as zero because no samples remained in the cleaned dataset.
 
 ---
+### SMOTE Resampling Results
 
+**Model Performance**
+
+Accuracy: 0.661
+Macro F1 (present classes only): 0.481
+
+**Classification Report (After SMOTE)**
+
+              precision    recall  f1-score   support
+poor            0.115     0.150     0.130     1095
+fair            0.297     0.390     0.338     6006
+good            0.809     0.718     0.761    28614
+excellent       0.647     0.751     0.695     6213
+
+accuracy                             0.661    41928
+macro avg       0.467     0.502     0.481    41928
+weighted avg    0.693     0.661     0.674    41928
+
+**Confusion Matrix (After SMOTE)**
+
+![Random Forest Confusion Matrix](images/images/SmoteConMatrix.png)
+
+**Key Insights**
+
+- Recall improved for **poor** (0.073 → 0.150) and **fair** (0.169 → 0.390)
+- Overall accuracy decreased (0.752 → 0.661) due to more balanced predictions
+- **Good** dropped in recall since it was no longer overrepresented during training
+- Macro F1 slightly increased (0.479 → 0.481), showing better class balance
+- Confirms that **class imbalance limited the original model**, especially for unhealthy trees
+
+---
+
+**Quick Comparison**
+
+| Model       | Accuracy | Macro F1 | Poor Recall | Fair Recall |
+|-------------|----------|----------|-------------|-------------|
+| Baseline RF | 0.752    | 0.479    | 0.073       | 0.169       |
+| SMOTE RF    | 0.661    | 0.481    | 0.150       | 0.390       |
+
+
+---
 ## Getting Started
 
 ### Environment Setup (uv)
@@ -208,5 +286,26 @@ source .venv/bin/activate
 uv pip install -r pyproject.toml
 
 ```
+---
 
+## References
+1. Conservancy, T.N.: Benefits of urban trees. https://www.nature.org/
+en-us/what-we-do/our-priorities/build-healthy-cities/cities-stories/
+benefits-of-trees-forests/ (nd), accessed: 2025-10-25
+2. Food, of the United Nations, A.O.: The state of the world’s forests 2020 – forests
+and biodiversity. https://www.fao.org/state-of-forests (2020), accessed: 2025-
+10-25
+3. McCoy, D.E., Goulet-Scott, B., Meng, W., Atahan, B.F., Kiros, H., Nishino,
+M., Kartesz, J.: 5m trees dataset. https://www.kaggle.com/datasets/mexwell/
+5m-trees-dataset (2022), accessed: 2025-10-25
+4. Sexton, J.O., Feng, M., Channan, S., Song, X.P., Kim, D.H., Noojipady, P., Song,
+D., Huang, C., Annand, A., Collins, K., Vermote, E.F., Wolfe, R., Masek, J., Town-
+shend, J.R.G.: Earth science data records of global forest cover and change: User
+guide (version 1). Tech. rep., NASA Land Processes Distributed Active Archive
+Center (LP DAAC) (2013), accessed: 2025-10-25
+5. Speak for the Trees, Boston: Benefits of urban trees. https://treeboston.org/
+tree-equity-maps/benefits-of-urban-trees/ (nd), accessed: 2025-10-25
+6. Twohig-Bennett, C., Jones, A.: The health benefits of the great outdoors: A system-
+atic review and meta-analysis of greenspace exposure and health outcomes. Environ-
+mental Research 166, 628–637 (2018). https://doi.org/10.1016/j.envres.2018.06.030
 
