@@ -213,15 +213,17 @@ Macro F1 (present classes only): 0.481
 
 **Classification Report (After SMOTE)**
 
-              precision    recall  f1-score   support
-poor            0.115     0.150     0.130     1095
-fair            0.297     0.390     0.338     6006
-good            0.809     0.718     0.761    28614
-excellent       0.647     0.751     0.695     6213
+          precision    recall  f1-score   support
 
-accuracy                             0.661    41928
-macro avg       0.467     0.502     0.481    41928
-weighted avg    0.693     0.661     0.674    41928
+    poor      0.115     0.150     0.130      1095
+    fair      0.297     0.390     0.338      6006
+    good      0.809     0.718     0.761     28614
+excellent     0.647     0.751     0.695      6213
+
+accuracy                          0.661     41928
+macro avg     0.467     0.502     0.481     41928
+weighted avg  0.693     0.661     0.674     41928
+
 
 **Confusion Matrix (After SMOTE)**
 
